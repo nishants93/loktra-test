@@ -10,6 +10,7 @@
 import urllib2
 from bs4 import BeautifulSoup
 import sys
+from urllib import urlencode
 
 page = ""
 keyword = ""
@@ -18,7 +19,7 @@ pageset = False
 sys.argv.append("something") #appneding some string to judge whether command line arguments are provided or not
 
 if sys.argv[1] != "something":
-	keyword = "?KW=" + sys.argv[1]
+	keyword =  sys.argv[1]
 else:
 	print "No Argument Provided!"
 	exit() 
@@ -26,7 +27,10 @@ if sys.argv[2] != "something":
 	page = "~PG-" + sys.argv[2]
 	pageset = True
 
-url = "http://www.shopping.com/products" + page + keyword 
+encodedpart = urlencode({'KW' : keyword})
+encodedpart = "?" + encodedpart
+
+url = "http://www.shopping.com/products" + page + encodedpart
 
 resp = urllib2.urlopen(url)
 respHtml = resp.read()
