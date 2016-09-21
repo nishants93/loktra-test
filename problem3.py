@@ -60,6 +60,9 @@ if pageset:  # if-else for judging whether we have to find product details or no
 			temp['shipping'] = "Shipping Not Found!"
 		productDetails.append(temp)
 	i = 1
+	if productDetails == []:
+		print "No Products Found!"
+		exit()
 	for productDetail in productDetails:
 		print "-------------------------------\n          PRODUCT " + str(i) + "          \n-------------------------------"
 		for productDetailTitle, ProductDetailResult in productDetail.iteritems():
