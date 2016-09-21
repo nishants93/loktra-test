@@ -34,7 +34,7 @@ url = "http://www.shopping.com/products" + page + encodedpart
 
 resp = urllib2.urlopen(url)
 respHtml = resp.read()
-soup = BeautifulSoup(respHtml, "html5lib")  #initializing soup object using html5lib parser
+soup = BeautifulSoup(respHtml, "html.parser")  #initializing soup object using html5lib parser
 
 if pageset:  # if-else for judging whether we have to find product details or no. of products
 	products = soup.find_all('div', {'class' : 'gridBox deal  '})  #getting all the products from DOM.
