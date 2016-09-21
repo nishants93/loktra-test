@@ -1,0 +1,3 @@
+Problem 1 : No such dependencies.
+
+Problem 3 : bs4 (BeautifulSoup for html parsing), six, html5lib
