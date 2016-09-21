@@ -37,19 +37,27 @@ respHtml = resp.read()
 soup = BeautifulSoup(respHtml, "html.parser")  #initializing soup object using html5lib parser
 
 if pageset:  # if-else for judging whether we have to find product details or no. of products
-	products = soup.find_all('div', {'class' : 'gridBox deal  '})  #getting all the products from DOM.
+	products = soup.find_all('div', {'class' : 'gridBox'})  #getting all the products from DOM.
 	productDetails = []
 	for product in products:
 		temp = {}
 		if product.find('a', {'class' : 'productName '}) is not None:
 			if product.find('a', {'class' : 'productName '}).find('span') is not None:
 				temp['title'] = product.find('a', {'class' : 'productName '}).find('span')['title']
+			else:
+				temp['title'] = product.find('a', {'class' : 'productName '})['title']
 		if product.find('span', {'class' : 'productPrice'}) is not None:
 			temp['price'] = product.find('span', {'class' : 'productPrice'}).getText().strip()
 		if product.find('a', {'class' : 'newMerchantName'}) is not None:
 			temp['merchant'] = product.find('a', {'class' : 'newMerchantName'}).getText().strip()
+		elif product.find('span', {'class' : 'newMerchantName'}) is not None:
+			temp['merchant'] = product.find('span', {'class' : 'newMerchantName'}).getText().strip()
 		if product.find('div', {'class' : 'taxShippingArea'}) is not None:
 			temp['shipping'] = product.find('div', {'class' : 'taxShippingArea'}).getText().strip()
+		elif product.find('div', {'class' : 'freeShip'}) is not None:
+			temp['shipping'] = product.find('div', {'class' : 'freeShip'}).getText().strip()
+		else:
+			temp['shipping'] = "Shipping Not Found!"
 		productDetails.append(temp)
 	i = 1
 	for productDetail in productDetails:
